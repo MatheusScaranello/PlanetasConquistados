@@ -1,88 +1,159 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FaTrash, FaPen } from "react-icons/fa";
 
 import styles from "./styles";
 import Title from "../../components/Title";
 import TouchButton from "../../components/TouchButton";
-import { user } from "../../data/Profile";
 
-import User from "../../models/user/User";
-import UsersRepository from "../../models/user/UserRepository";
+import Planet from "../../models/planet/Planent.js";
+import PlanetsRepository from "../../models/planet/PlanentRepository";
 import { useNavigation } from "@react-navigation/native";
 
-const usersList = new UsersRepository();
+const planetsList = new PlanetsRepository();
 
-let userId = 1;
+let planetId = 1;
 
 export default function Users() {
   const navigation = useNavigation();
 
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
+  const [date, setDate] = useState("");
+  const [color1, setColor1] = useState("");
+  const [color2, setColor2] = useState("");
+  const [population, setPopulation] = useState("");
+  const [naturalResources, setNaturalResources] = useState("");
+  const [numberHumanSettlements, setNumberHumanSettlements] = useState("");
+  const [location, setLocation] = useState("");
+  const [communication, setCommunication] = useState("");
+  const [planetRuler, setPlanetRuler] = useState("");
 
-  const [allUsers, setAllUsers] = useState([]);
+  const [allPlanets, setAllPlanets] = useState([]);
 
-  const createUser = () => {
-    const newUser = new User(userId++, name, email, parseInt(age) || 0);
-
-    usersList.add(newUser);
-    setAllUsers(usersList.getAll());
+  const createPlanet = () => {
+    const planet = new Planet(
+      planetId++,
+      name,
+      date,
+      color1,
+      color2,
+      population,
+      naturalResources,
+      numberHumanSettlements,
+      location,
+      communication,
+      planetRuler
+    );
+    planetsList.add(planet);
+    setAllPlanets(planetsList.getAll());
 
     clearInputs();
+  };
 
-    return newUser;
+  const deletePlanet = (id) => {
+    planetsList.remove(id);
+    setAllPlanets(planetsList.getAll());
   };
 
   const clearInputs = () => {
     setName("");
-    setEmail("");
-    setAge("");
+    setDate("");
+    setColor1("");
+    setColor2("");
+    setPopulation("");
+    setNaturalResources("");
+    setNumberHumanSettlements("");
+    setLocation("");
+    setCommunication("");
+    setPlanetRuler("");
   };
 
   return (
     <View style={styles.container}>
-      <Title title="Users" />
-
-      <View>
+      <Title title="Create Planet" />
+      <View style={styles.form}>
         <TextInput
-          placeholder="Digite o nome do aluno"
-          style={styles.userInput}
-          onChangeText={setName}
+          style={styles.input}
+          placeholder="Name"
           value={name}
+          onChangeText={setName}
         />
         <TextInput
-          placeholder="Digite o email do aluno"
-          style={styles.userInput}
-          onChangeText={setEmail}
-          value={email}
-        />
-        <TextInput
-          placeholder="Digite a idade do aluno"
-          style={styles.userInput}
-          onChangeText={(text) => setAge(text)}
-          value={age}
+          style={styles.input}
+          placeholder="Date"
+          value={date}
+          onChangeText={setDate}
           keyboardType="numeric"
         />
-
-        <TouchableOpacity style={styles.button} onPress={createUser}>
-          <Text>Criar Usuário</Text>
-        </TouchableOpacity>
+        <TextInput
+          style={styles.input}
+          placeholder="Color 1"
+          value={color1}
+          onChangeText={setColor1}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Color 2"
+          value={color2}
+          onChangeText={setColor2}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Population"
+          value={population}
+          onChangeText={setPopulation}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Natural Resources"
+          value={naturalResources}
+          onChangeText={setNaturalResources}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Number of Human Settlements"
+          value={numberHumanSettlements}
+          onChangeText={setNumberHumanSettlements}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Location"
+          value={location}
+          onChangeText={setLocation}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Communication"
+          value={communication}
+          onChangeText={setCommunication}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Planet Ruler"
+          value={planetRuler}
+          onChangeText={setPlanetRuler}
+        />
       </View>
+      <TouchableOpacity style={styles.button} onPress={createPlanet}>
+        <Text>Create Planet</Text>
+      </TouchableOpacity>
 
-      <View>
-        {allUsers.length > 0 ? (
-          allUsers.map((user) => (
+      <View style={styles.listPlanets}>
+        {allPlanets.map((planet) => (
+          <View key={planet.id} style={styles.planet}>
+            <Text>{planet.name}</Text>
             <TouchableOpacity
-              key={user.id}
-              onPress={() => navigation.navigate("Profile", { data: user })}
+              onPress={() => {
+                navigation.navigate("Planets", { data: planet });
+              }}
             >
-              <Text>{user.name}</Text>
+              <Text>Details</Text>
             </TouchableOpacity>
-          ))
-        ) : (
-          <Text>Não há usuários cadastrados</Text>
-        )}
+            <TouchableOpacity onPress={deletePlanet(planet.id)}>
+              <FaTrash />
+            </TouchableOpacity>
+          </View>
+        ))}
       </View>
     </View>
   );

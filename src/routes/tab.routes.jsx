@@ -6,6 +6,7 @@ import Profile from "../screens/Profile";
 import Planets from "../screens/Planets";
 import Users from "../screens/Users";
 import { user } from "../data/Profile";
+import { nullPlanet } from "../data/NullPlanet";
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +49,7 @@ const TabRoutes = () => {
 
       <Tab.Screen
         name="Planets"
+        initialParams={{ data: nullPlanet }}
         component={Planets}
         options={{
           tabBarIcon: ({ focused }) => (

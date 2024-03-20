@@ -6,17 +6,31 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     alignItems: "center",
   },
-  button: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#C9D4FF",
-    borderRadius: 5,
+  form: {
+    width: "80%",
   },
-  userInput: {
-    padding: 8,
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    width: "75%",
+  input: {
+    height: 40,
+    margin: 2,
+    borderWidth: 1,
+    textAlign: "center",
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10,
+  },
+  list: {
+    width: "80%",
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });
 
