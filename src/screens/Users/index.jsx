@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const usersList = new UsersRepository();
 
-let userId = 1; // Inicia o ID do usuário
+let userId = 1;
 
 export default function Users() {
   const navigation = useNavigation();
@@ -24,7 +24,7 @@ export default function Users() {
   const [allUsers, setAllUsers] = useState([]);
 
   const createUser = () => {
-    const newUser = new User(userId++, name, email, parseInt(age) || 0); // Incrementa o ID após o uso
+    const newUser = new User(userId++, name, email, parseInt(age) || 0);
 
     usersList.add(newUser);
     setAllUsers(usersList.getAll());
@@ -84,9 +84,6 @@ export default function Users() {
           <Text>Não há usuários cadastrados</Text>
         )}
       </View>
-
-      <TouchButton route="Category" title="Go to Category" />
-      <TouchButton route="Profile" title="Go to Profile" data={user} />
     </View>
   );
 }

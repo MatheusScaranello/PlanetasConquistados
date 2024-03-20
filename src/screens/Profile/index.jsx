@@ -12,10 +12,6 @@ export default function Profile({ route }) {
     <View style={styles.container}>
       <Title title="Profile" />
 
-      <TouchButton route="Home" title="Go to Home" />
-
-      <TouchButton route="Category" title="Go to Category" />
-
       <View style={styles.user}>
         <Title title={data.name} />
         <Image style={styles.foto} source={foto} />
