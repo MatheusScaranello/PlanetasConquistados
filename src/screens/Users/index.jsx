@@ -77,6 +77,7 @@ export default function Users() {
           placeholder="Name"
           value={name}
           onChangeText={setName}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
@@ -84,54 +85,63 @@ export default function Users() {
           value={date}
           onChangeText={setDate}
           keyboardType="numeric"
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Color 1"
           value={color1}
           onChangeText={setColor1}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Color 2"
           value={color2}
           onChangeText={setColor2}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Population"
           value={population}
           onChangeText={setPopulation}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Natural Resources"
           value={naturalResources}
           onChangeText={setNaturalResources}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Number of Human Settlements"
           value={numberHumanSettlements}
           onChangeText={setNumberHumanSettlements}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Location"
           value={location}
           onChangeText={setLocation}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Communication"
           value={communication}
           onChangeText={setCommunication}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Planet Ruler"
           value={planetRuler}
           onChangeText={setPlanetRuler}
+          placeholderTextColor={styles.placeholder.color}
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={createPlanet}>

@@ -1,3 +1,3 @@
 export const nullPlanet = {
-  name: "Escolha um planeta na Pagina Users",
+  name: "Planet not found...",
 };

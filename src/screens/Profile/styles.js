@@ -3,31 +3,49 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#000000",
+    padding: 20,
     justifyContent: "center",
-    alignItems: "center",
-  },
-  button: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#C9D4FF",
-    borderRadius: 5,
   },
   user: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 5,
+    backgroundColor: "#333333",
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
   },
-  text: {
-    fontSize: 18,
-    textAlign: "center",
+  name: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    marginBottom: 20,
+    textShadowColor: "#000000",
+    textShadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    textShadowRadius: 5,
   },
   foto: {
-    width: 150,
-    height: 150,
-    borderRadius: 100,
-    alignSelf: "center",
-    margin: 10,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 13,
+    color: "#FFFFFF",
+    marginBottom: 10,
+    marginLeft: 10,
+  },
+  line: {
+    height: 1,
+    backgroundColor: "#FF6347",
+    marginBottom: 20,
+  },
+  flex: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    display: "flex",
   },
 });
 
