@@ -115,6 +115,7 @@ export default function Users() {
             onChangeText={setDay}
             keyboardType="numeric"
             limit={2}
+            maxLength={2}
           />
           <TextInput
             style={styles.inputDate}
@@ -123,6 +124,7 @@ export default function Users() {
             onChangeText={setMonth}
             keyboardType="numeric"
             limit={2}
+            maxLength={2}
           />
           <TextInput
             style={styles.inputDate}
@@ -131,6 +133,7 @@ export default function Users() {
             onChangeText={setYear}
             keyboardType="numeric"
             limit={4}
+            maxLength={4}
           />
         </View>
         <ColorInput selectedColor={color1} />
