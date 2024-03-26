@@ -5,6 +5,7 @@ import { FaTrash, FaPen } from "react-icons/fa";
 import styles from "./styles";
 import Title from "../../components/Title";
 import TouchButton from "../../components/TouchButton";
+import ColorInput from "../../components/ColorInput/index.jsx";
 
 import Planet from "../../models/planet/Planent.js";
 import PlanetsRepository from "../../models/planet/PlanentRepository";
@@ -19,6 +20,9 @@ export default function Users() {
 
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
   const [color1, setColor1] = useState("");
   const [color2, setColor2] = useState("");
   const [population, setPopulation] = useState("");
@@ -27,8 +31,13 @@ export default function Users() {
   const [location, setLocation] = useState("");
   const [communication, setCommunication] = useState("");
   const [planetRuler, setPlanetRuler] = useState("");
+  const [updateOn, setUpdateOn] = useState(false);
 
   const [allPlanets, setAllPlanets] = useState([]);
+
+  const concatDate = () => {
+    setDate(`${day}/${month}/${year}`);
+  };
 
   const createPlanet = () => {
     const planet = new Planet(
@@ -46,6 +55,7 @@ export default function Users() {
     );
     planetsList.add(planet);
     setAllPlanets(planetsList.getAll());
+    concatDate();
 
     clearInputs();
   };
@@ -53,6 +63,25 @@ export default function Users() {
   const deletePlanet = (id) => {
     planetsList.remove(id);
     setAllPlanets(planetsList.getAll());
+  };
+
+  const updatePlanet = (id) => {
+    const planet = new Planet(
+      id,
+      name,
+      date,
+      color1,
+      color2,
+      population,
+      naturalResources,
+      numberHumanSettlements,
+      location,
+      communication,
+      planetRuler
+    );
+    planetsList.update(planet);
+    setAllPlanets(planetsList.getAll());
+    clearInputs();
   };
 
   const clearInputs = () => {
@@ -78,25 +107,34 @@ export default function Users() {
           value={name}
           onChangeText={setName}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Date"
-          value={date}
-          onChangeText={setDate}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Color 1"
-          value={color1}
-          onChangeText={setColor1}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Color 2"
-          value={color2}
-          onChangeText={setColor2}
-        />
+        <View style={styles.dateInputs}>
+          <TextInput
+            style={styles.inputDate}
+            placeholder="Day"
+            value={day}
+            onChangeText={setDay}
+            keyboardType="numeric"
+            limit={2}
+          />
+          <TextInput
+            style={styles.inputDate}
+            placeholder="Month"
+            value={month}
+            onChangeText={setMonth}
+            keyboardType="numeric"
+            limit={2}
+          />
+          <TextInput
+            style={styles.inputDate}
+            placeholder="Year"
+            value={year}
+            onChangeText={setYear}
+            keyboardType="numeric"
+            limit={4}
+          />
+        </View>
+        <ColorInput selectedColor={color1} />
+        <ColorInput selectedColor={color2} />
         <TextInput
           style={styles.input}
           placeholder="Population"
@@ -134,9 +172,18 @@ export default function Users() {
           onChangeText={setPlanetRuler}
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={createPlanet}>
+      {
+        updateOn ? (
+          <TouchableOpacity style={styles.button} onPress={updatePlanet()}>
+            <Text>Update Planet</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={createPlanet}>
         <Text>Create Planet</Text>
       </TouchableOpacity>
+        )
+      }
+      
 
       <View style={styles.listPlanets}>
         {allPlanets.map((planet) => (

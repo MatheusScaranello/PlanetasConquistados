@@ -20,6 +20,15 @@ export default function Profile({ route }) {
         <Text style={styles.detail}>Location: {data.location}</Text>
         <Text style={styles.detail}>Communication: {data.communication}</Text>
         <Text style={styles.detail}>Planet Ruler: {data.planetRuler}</Text>
+        <View>
+        <Text style={styles.detail}>Colors:</Text>
+        <View style={[styles.colors, {
+          backgroundColor: data.color1,
+        }]}></View>
+        <View style={[styles.colors, {
+          backgroundColor: data.color2,
+        }]}></View>
+        </View>
       </View>
     </View>
   );
