@@ -4,7 +4,6 @@ import { FaTrash, FaPen } from "react-icons/fa";
 
 import styles from "./styles";
 import Title from "../../components/Title";
-import TouchButton from "../../components/TouchButton";
 import ColorInput from "../../components/ColorInput/index.jsx";
 
 import Planet from "../../models/planet/Planent.js";
@@ -106,6 +105,7 @@ export default function Users() {
           placeholder="Name"
           value={name}
           onChangeText={setName}
+          placeholderTextColor={styles.placeholder.color}
         />
         <View style={styles.dateInputs}>
           <TextInput
@@ -140,36 +140,42 @@ export default function Users() {
           placeholder="Population"
           value={population}
           onChangeText={setPopulation}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Natural Resources"
           value={naturalResources}
           onChangeText={setNaturalResources}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Number of Human Settlements"
           value={numberHumanSettlements}
           onChangeText={setNumberHumanSettlements}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Location"
           value={location}
           onChangeText={setLocation}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Communication"
           value={communication}
           onChangeText={setCommunication}
+          placeholderTextColor={styles.placeholder.color}
         />
         <TextInput
           style={styles.input}
           placeholder="Planet Ruler"
           value={planetRuler}
           onChangeText={setPlanetRuler}
+          placeholderTextColor={styles.placeholder.color}
         />
       </View>
       {

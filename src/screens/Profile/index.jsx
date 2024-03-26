@@ -13,12 +13,17 @@ export default function Profile({ route }) {
       <Title title="Profile" />
 
       <View style={styles.user}>
-        <Title title={data.name} />
-        <Image style={styles.foto} source={foto} />
-        <Text style={styles.text}>{data.email}</Text>
-        <Text style={styles.text}>{data.phone}</Text>
-        <Text style={styles.text}>{data.address.city}</Text>
-        <Text style={styles.text}>{data.address.state}</Text>
+        <Text style={styles.name}>{data.name}</Text>
+        <View style={styles.line} />
+        <View style={styles.flex}>
+          <Image style={styles.foto} source={foto} />
+          <View>
+            <Text style={styles.text}>{data.email}</Text>
+            <Text style={styles.text}>{data.phone}</Text>
+            <Text style={styles.text}>{data.address.city}</Text>
+            <Text style={styles.text}>{data.address.state}</Text>
+          </View>
+        </View>
       </View>
     </View>
   );

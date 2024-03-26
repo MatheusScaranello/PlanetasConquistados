@@ -1,14 +1,18 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 import styles from "./styles";
 import Title from "../../components/Title";
-import { user } from "../../data/Profile";
 import TouchButton from "../../components/TouchButton";
+import { user } from "../../data/Profile";
 
 export default function Home() {
   return (
     <View style={styles.container}>
       <Title title="Home" />
+      <View>
+        <Text style={styles.text}>Welcome to the Creator Planets!</Text>
+        <TouchButton title="Create your planet" route="Users" />
+      </View>
     </View>
   );
 }
