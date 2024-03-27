@@ -1,4 +1,4 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 
 import styles from "./styles";
 import Title from "../../components/Title";
@@ -46,8 +46,12 @@ export default function Profile({ route }) {
           ></View>
         </View>
       </View>
-
-      <TouchButton title="Edit" route="Users" data={data} />
+      <TouchButton
+        title="Edit Planet"
+        onPress={() => {
+          navigation.navigate("Users", { planet: data, edit: true });
+        }}
+      />
     </View>
   );
 }

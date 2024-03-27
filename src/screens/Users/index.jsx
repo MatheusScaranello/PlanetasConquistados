@@ -32,6 +32,8 @@ export default function Users(planet, edit) {
   const [planetRuler, setPlanetRuler] = useState("");
   const [updateOn, setUpdateOn] = useState(false);
 
+  setUpdateOn(edit);
+
   const [allPlanets, setAllPlanets] = useState([]);
 
   const concatDate = () => {
@@ -84,9 +86,24 @@ export default function Users(planet, edit) {
     communication = data.communication;
     planetRuler = data.planetRuler;
     resetDate();
-    setUpdateOn(true);
+    deletePlanet(data.id);
+    const planet = new Planet(
+      planetId++,
+      name,
+      date,
+      color1,
+      color2,
+      population,
+      naturalResources,
+      numberHumanSettlements,
+      location,
+      communication,
+      planetRuler
+    );
 
+    planetsList.add(planet);
     clearInputs();
+    setUpdateOn(false);
   };
 
   const clearInputs = () => {
