@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { FaTrash, FaPen } from "react-icons/fa";
 
 import styles from "./styles";
 import Title from "../../components/Title";
@@ -14,7 +13,8 @@ const planetsList = new PlanetsRepository();
 
 let planetId = 1;
 
-export default function Users() {
+export default function Users(planet, edit) {
+  const { data } = planet.params;
   const navigation = useNavigation();
 
   const [name, setName] = useState("");
@@ -38,6 +38,13 @@ export default function Users() {
     setDate(`${day}/${month}/${year}`);
   };
 
+  const resetDate = () => {
+    date.split("/");
+    setDay(date[0]);
+    setMonth(date[1]);
+    setYear(date[2]);
+  };
+
   const createPlanet = () => {
     const planet = new Planet(
       planetId++,
@@ -55,6 +62,7 @@ export default function Users() {
     planetsList.add(planet);
     setAllPlanets(planetsList.getAll());
     concatDate();
+    setUpdateOn(false);
 
     clearInputs();
   };
@@ -64,22 +72,20 @@ export default function Users() {
     setAllPlanets(planetsList.getAll());
   };
 
-  const updatePlanet = (id) => {
-    const planet = new Planet(
-      id,
-      name,
-      date,
-      color1,
-      color2,
-      population,
-      naturalResources,
-      numberHumanSettlements,
-      location,
-      communication,
-      planetRuler
-    );
-    planetsList.update(planet);
-    setAllPlanets(planetsList.getAll());
+  const updatePlanet = () => {
+    name = data.name;
+    date = data.date;
+    color1 = data.color1;
+    color2 = data.color2;
+    population = data.population;
+    naturalResources = data.naturalResources;
+    numberHumanSettlements = data.numberHumanSettlements;
+    location = data.location;
+    communication = data.communication;
+    planetRuler = data.planetRuler;
+    resetDate();
+    setUpdateOn(true);
+
     clearInputs();
   };
 
@@ -181,18 +187,15 @@ export default function Users() {
           placeholderTextColor={styles.placeholder.color}
         />
       </View>
-      {
-        updateOn ? (
-          <TouchableOpacity style={styles.button} onPress={updatePlanet()}>
-            <Text>Update Planet</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={styles.button} onPress={createPlanet}>
-        <Text>Create Planet</Text>
-      </TouchableOpacity>
-        )
-      }
-      
+      {updateOn ? (
+        <TouchableOpacity style={styles.button} onPress={updatePlanet()}>
+          <Text>Update Planet</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity style={styles.button} onPress={createPlanet}>
+          <Text>Create Planet</Text>
+        </TouchableOpacity>
+      )}
 
       <View style={styles.listPlanets}>
         {allPlanets.map((planet) => (
@@ -206,7 +209,7 @@ export default function Users() {
               <Text>Details</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={deletePlanet(planet.id)}>
-              <FaTrash />
+              <Text>Delete</Text>
             </TouchableOpacity>
           </View>
         ))}
