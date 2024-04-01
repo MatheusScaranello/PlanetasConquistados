@@ -11,7 +11,7 @@ const TouchButton = ({ route, title, data }) => {
     <View style={styles.fundo}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate(route, { data })}
+        onPress={() => navigation.navigate(route, { data, edit: false })}
       >
         <Title title={title} />
       </TouchableOpacity>

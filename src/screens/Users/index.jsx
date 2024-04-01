@@ -8,13 +8,15 @@ import ColorInput from "../../components/ColorInput/index.jsx";
 import Planet from "../../models/planet/Planent.js";
 import PlanetsRepository from "../../models/planet/PlanentRepository";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
 
 const planetsList = new PlanetsRepository();
 
 let planetId = 1;
 
-export default function Users(planet) {
-  const { data } = planet.params;
+export default function Users({ route }) {
+  const { data, edit } = route.params;
+
   const navigation = useNavigation();
 
   const [name, setName] = useState("");
@@ -30,22 +32,22 @@ export default function Users(planet) {
   const [location, setLocation] = useState("");
   const [communication, setCommunication] = useState("");
   const [planetRuler, setPlanetRuler] = useState("");
-  const [updateOn, setUpdateOn] = useState(false);
+  const [updateOn, setUpdateOn] = useState(edit);
 
-  if (data) {
-    setName(data.name);
-    setDate(data.date);
-    resetDate();
-    setColor1(data.color1);
-    setColor2(data.color2);
-    setPopulation(data.population);
-    setNaturalResources(data.naturalResources);
-    setNumberHumanSettlements(data.numberHumanSettlements);
-    setLocation(data.location);
-    setCommunication(data.communication);
-    setPlanetRuler(data.planetRuler);
-    setUpdateOn(true);
-  }
+  useEffect(() => {
+    if (edit) {
+      setName(data.name);
+      setDate(data.date);
+      setColor1(data.color1);
+      setColor2(data.color2);
+      setPopulation(data.population);
+      setNaturalResources(data.naturalResources);
+      setNumberHumanSettlements(data.numberHumanSettlements);
+      setIsUpdate(true);
+    } else {
+      clearInputs();
+    }
+  }, [data, edit]);
 
   const [allPlanets, setAllPlanets] = useState([]);
 
@@ -62,9 +64,9 @@ export default function Users(planet) {
 
   const createPlanet = () => {
     const planet = new Planet(
-      planetId++,
+      planetId,
       name,
-      date,
+      concatDate(),
       color1,
       color2,
       population,
@@ -76,9 +78,7 @@ export default function Users(planet) {
     );
     planetsList.add(planet);
     setAllPlanets(planetsList.getAll());
-    concatDate();
-    setUpdateOn(false);
-
+    planetId++;
     clearInputs();
   };
 
@@ -87,7 +87,7 @@ export default function Users(planet) {
     setAllPlanets(planetsList.getAll());
   };
 
-    const updatePlanet = () => {
+  const updatePlanet = () => {
     const planet = new Planet(
       data.id,
       name,
@@ -106,7 +106,7 @@ export default function Users(planet) {
     setUpdateOn(false);
 
     clearInputs();
-    };
+  };
 
   const clearInputs = () => {
     setName("");
@@ -119,6 +119,9 @@ export default function Users(planet) {
     setLocation("");
     setCommunication("");
     setPlanetRuler("");
+    setDay("");
+    setMonth("");
+    setYear("");
   };
 
   return (
@@ -140,6 +143,7 @@ export default function Users(planet) {
             onChangeText={setDay}
             keyboardType="numeric"
             limit={2}
+            placeholderTextColor={styles.placeholder.color}
             maxLength={2}
           />
           <TextInput
@@ -150,6 +154,7 @@ export default function Users(planet) {
             keyboardType="numeric"
             limit={2}
             maxLength={2}
+            placeholderTextColor={styles.placeholder.color}
           />
           <TextInput
             style={styles.inputDate}
@@ -159,10 +164,13 @@ export default function Users(planet) {
             keyboardType="numeric"
             limit={4}
             maxLength={4}
+            placeholderTextColor={styles.placeholder.color}
           />
         </View>
-        <ColorInput selectedColor={color1} />
-        <ColorInput selectedColor={color2} />
+        <View style={styles.colors}>
+          <ColorInput selectedColor={color1} />
+          <ColorInput selectedColor={color2} />
+        </View>
         <TextInput
           style={styles.input}
           placeholder="Population"
@@ -211,24 +219,37 @@ export default function Users(planet) {
           <Text>Update Planet</Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.button} onPress={createPlanet}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            createPlanet();
+          }}
+        >
           <Text>Create Planet</Text>
         </TouchableOpacity>
       )}
 
       <View style={styles.listPlanets}>
         {allPlanets.map((planet) => (
-          <View key={planet.id} style={styles.planet}>
-            <Text>{planet.name}</Text>
+          <View style={styles.planet} key={planet.id}>
             <TouchableOpacity
+              key={planet.id}
+              style={styles.planetButton}
               onPress={() => {
                 navigation.navigate("Planets", { data: planet });
               }}
             >
-              <Text>Details</Text>
+              <Text style={styles.planetText}>{planet.name}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={deletePlanet(planet.id)}>
-              <Text>Delete</Text>
+
+            <TouchableOpacity
+              key={planet.id}
+              style={styles.planetButton}
+              onPress={() => {
+                deletePlanet(planet.id);
+              }}
+            >
+              <Text style={styles.planetText}>Delete</Text>
             </TouchableOpacity>
           </View>
         ))}

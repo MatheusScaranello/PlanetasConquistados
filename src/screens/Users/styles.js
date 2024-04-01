@@ -56,7 +56,45 @@ const styles = StyleSheet.create({
   placeholder: {
     color: "#CCCCCC",
   },
-  
+  colors: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  dateInputs: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  inputDate: {
+    height: 40,
+    width: "30%",
+    margin: 2,
+    borderWidth: 1,
+    textAlign: "center",
+    borderColor: "#FF6347",
+    borderRadius: 20,
+    color: "#FFFFFF",
+  },
+  listPlanets: {
+    width: "80%",
+    marginTop: 20,
+  },
+  planet: {
+    backgroundColor: "#FF6347",
+    padding: 10,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+  planetButton: {
+    alignItems: "center",
+    color: "#FFFFFF",
+    padding: 5,
+    width: "50%",
+    borderRadius: 20,
+  },
+  planetText: {
+    color: "#FFFFFF",
+    fontSize: 18,
+  },
 });
 
 export default styles;

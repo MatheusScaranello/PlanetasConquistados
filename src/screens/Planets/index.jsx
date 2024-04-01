@@ -49,7 +49,7 @@ export default function Profile({ route }) {
       <TouchButton
         title="Edit Planet"
         onPress={() => {
-          navigation.navigate("Users", { planet: data, edit: true });
+          navigation.navigate("Users", { data, edit: true });
         }}
       />
     </View>

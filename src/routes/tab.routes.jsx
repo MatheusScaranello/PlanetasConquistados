@@ -67,6 +67,7 @@ const TabRoutes = () => {
 
       <Tab.Screen
         name="Users"
+        initialParams={{ data: null, edit: false }}
         component={Users}
         options={{
           tabBarIcon: ({ focused }) => (
