@@ -4,8 +4,11 @@ import styles from "./styles";
 import Title from "../../components/Title";
 import TouchButton from "../../components/TouchButton";
 
+import { useNavigation } from "@react-navigation/native";
+
 export default function Profile({ route }) {
   const { data } = route.params;
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -46,12 +49,14 @@ export default function Profile({ route }) {
           ></View>
         </View>
       </View>
-      <TouchButton
-        title="Edit Planet"
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => {
           navigation.navigate("Users", { data, edit: true });
         }}
-      />
+      >
+        <Text>Edit</Text>
+      </TouchableOpacity>
     </View>
   );
 }

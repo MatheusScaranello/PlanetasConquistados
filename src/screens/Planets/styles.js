@@ -55,6 +55,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10,
   },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#FF6347",
+    padding: 15,
+    borderRadius: 25,
+    marginTop: 20,
+    elevation: 5,
+  },
 });
 
 export default styles;

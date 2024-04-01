@@ -43,7 +43,7 @@ export default function Users({ route }) {
       setPopulation(data.population);
       setNaturalResources(data.naturalResources);
       setNumberHumanSettlements(data.numberHumanSettlements);
-      setIsUpdate(true);
+      setUpdateOn(true);
     } else {
       clearInputs();
     }
