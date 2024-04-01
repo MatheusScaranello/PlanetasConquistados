@@ -13,7 +13,7 @@ const planetsList = new PlanetsRepository();
 
 let planetId = 1;
 
-export default function Users(planet, edit) {
+export default function Users(planet) {
   const { data } = planet.params;
   const navigation = useNavigation();
 
@@ -32,7 +32,20 @@ export default function Users(planet, edit) {
   const [planetRuler, setPlanetRuler] = useState("");
   const [updateOn, setUpdateOn] = useState(false);
 
-  setUpdateOn(edit);
+  if (data) {
+    setName(data.name);
+    setDate(data.date);
+    resetDate();
+    setColor1(data.color1);
+    setColor2(data.color2);
+    setPopulation(data.population);
+    setNaturalResources(data.naturalResources);
+    setNumberHumanSettlements(data.numberHumanSettlements);
+    setLocation(data.location);
+    setCommunication(data.communication);
+    setPlanetRuler(data.planetRuler);
+    setUpdateOn(true);
+  }
 
   const [allPlanets, setAllPlanets] = useState([]);
 
@@ -74,23 +87,11 @@ export default function Users(planet, edit) {
     setAllPlanets(planetsList.getAll());
   };
 
-  const updatePlanet = () => {
-    name = data.name;
-    date = data.date;
-    color1 = data.color1;
-    color2 = data.color2;
-    population = data.population;
-    naturalResources = data.naturalResources;
-    numberHumanSettlements = data.numberHumanSettlements;
-    location = data.location;
-    communication = data.communication;
-    planetRuler = data.planetRuler;
-    resetDate();
-    deletePlanet(data.id);
+    const updatePlanet = () => {
     const planet = new Planet(
-      planetId++,
+      data.id,
       name,
-      date,
+      concatDate(),
       color1,
       color2,
       population,
@@ -100,11 +101,12 @@ export default function Users(planet, edit) {
       communication,
       planetRuler
     );
-
-    planetsList.add(planet);
-    clearInputs();
+    planetsList.update(planet);
+    setAllPlanets(planetsList.getAll());
     setUpdateOn(false);
-  };
+
+    clearInputs();
+    };
 
   const clearInputs = () => {
     setName("");
